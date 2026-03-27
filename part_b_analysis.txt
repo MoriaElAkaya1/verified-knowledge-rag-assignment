@@ -1,0 +1,10 @@
+Part B: Analysis (The 'Why')
+
+1. Chunking Trade-offs
+When chunk_size is increased to 3000, each chunk contains more surrounding context. The answers tend to become broader and more summary-like, because the model sees larger sections of the document at once. When chunk_size is reduced to 100, the chunks become very small and the answers become more granular and specific. The trade-off is that very small chunks can lose nearby context, so the answer may sound fragmented or miss the bigger picture.
+
+2. Hallucination Test
+For a question that is not covered by the PDF, such as 'What is the capital of France?', the bot should return the refusal phrase instead of guessing. In this project, the prompt is designed to keep the answer grounded in the retrieved document. If the retrieval step does not find relevant content, the model should say 'I don't know based on the provided document.' rather than leaking outside knowledge.
+
+3. LCEL Mastery
+The chain already uses RunnableParallel to return more than just the final answer. It returns both the answer string and the source list, so the user can see where the response came from. That makes the pipeline easier to inspect and demonstrates that the answer is tied to the retrieved documents.
